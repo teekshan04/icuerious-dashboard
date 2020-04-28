@@ -1,0 +1,13 @@
+<form action="{% url "database:checking" %}">
+
+<label>values in z<label>
+<select name="the-id">
+    {% for i in z %}
+    <option value="{{ i }}">{{ i }}</option>
+    {% endfor %}
+</select>
+<input type="submit" value="Select">
+</form>
+<body>
+{{z1}}
+</body>

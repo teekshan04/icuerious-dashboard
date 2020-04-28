@@ -1,0 +1,11 @@
+#chart svg {
+     height: 250px;
+     width: 80%;
+     position: relative;
+     }
+
+ #chart1 svg {
+     height: 300px;
+     width: 80%;
+     position: relative;
+     }

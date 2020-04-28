@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <!-- <meta charset="UTF-8"> -->
+    <title>Charts JS</title>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha256-nZaxPHA2uAaquixjSDX19TmIlbRNCOrf5HO1oHl5p70=" crossorigin="anonymous"></script>
+</head>
+
+
+
+
+
+<body>
+
+     <canvas id="chart1" width="400px" height="400px"></canvas>
+     <div id="chartContainer1" style="width: 45%; height: 300px;display: inline-block;"></div>
+<div id="chartContainer2" style="width: 45%; height: 300px;display: inline-block;"></div><br/>
+<div id="chartContainer3" style="width: 45%; height: 300px;display: inline-block;"></div>
+<div id="chartContainer4" style="width: 45%; height: 300px;display: inline-block;"></div>
+
+
+<script>
+
+    var ctx =document.getElementById("chart1").getContext('2d');
+   mychart = new Chart(ctx,{
+   type:'bar',
+   data: {
+        labels: {% autoescape on %}
+                 {{ webdata|safe}}
+                {% endautoescape %},
+
+        datasets: [{
+            label: 'Countries vs count',
+            label: 'list',
+            data: {{wedata}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(855, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(155, 199, 32, 0.2)',
+                'rgba(254, 62, 535, 0.2)',
+                'rgba(25, 206, 286, 0.2)',
+                'rgba(575, 92, 92, 0.2)',
+                'rgba(325, 6, 86, 0.2)',
+                'rgba(75, 392, 192, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 2)',
+                'rgba(54, 162, 235, 2)',
+                'rgba(855, 206, 86, 2)',
+                'rgba(75, 192, 192, 2)',
+                'rgba(155, 199, 32, 2)',
+                'rgba(254, 62, 535, 2)',
+                'rgba(25, 206, 286, 2)',
+                'rgba(575, 92, 92, 2)',
+                'rgba(325, 6, 86, 2)',
+                'rgba(75, 392, 192, 2)'
+            ],
+            borderWidth: 2
+         }]
+   },
+   options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                 }
+            }]
+        }
+   }
+
+});
+</script>
+</body>
+</html>

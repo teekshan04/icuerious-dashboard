@@ -1,0 +1,3181 @@
+def testing(request):
+    data = models.report.objects.all()
+
+
+    '''------------------------------- EARLIEST YEAR WISE PUBLICATION -----------------------------------------------'''
+    g3 = list()
+    for row in data:
+        g3.append(row.Earliest_priority)
+
+    a3 = list()
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    a3 = list()
+    for i in g3:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        a3.append(dt.year)
+
+    b3 = np.array(a3)
+    unique_elements3, counts_elements3 = np.unique(b3, return_counts=True)
+
+    counts_elements3 = list(counts_elements3)
+    unique_elements3 = list(unique_elements3)
+
+    trace2 = go.Bar(x=unique_elements3, y=counts_elements3,text=counts_elements3,
+            textposition='auto', marker=dict(
+            color=unique_elements3,
+
+
+        ))
+
+
+    data2 = [trace2]
+
+    layout1 = go.Layout(title="EARLIEST YEAR WISE PUBLICATION", xaxis={'title': 'YEAR','showgrid':False, 'tickformat': ',d'}, yaxis={'title': 'NO OF PATENTS','showgrid':False},plot_bgcolor='rgb(252, 243, 207)')
+    figure1 = go.Figure(data=data2, layout=layout1)
+    div = opy.plot(figure1,auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''------------------------------- YEAR WISE PUBLICATION- -------------------------------------------'''
+    g2 = list()
+    for row in data:
+        g2.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    a2 = list()
+    for i in g2:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        a2.append(dt.year)
+
+    b2 = np.array(a2)
+    unique_elements2, counts_elements2 = np.unique(b2, return_counts=True)
+
+    counts_elements2 = list(counts_elements2)
+    unique_elements2 = list(unique_elements2)
+
+    trace1 = go.Bar(x=unique_elements2, y=counts_elements2,text=counts_elements2,
+            textposition='auto'
+)
+
+
+    data1 =[trace1]
+
+    layout = go.Layout(title="YEAR WISE PUBLICATION", xaxis={'title': 'YEAR','showgrid':False, 'tickformat': ',d'}, yaxis={'title': 'NO OF PATENTS','showgrid':False},plot_bgcolor='rgb(252, 243, 207)')
+    figure = go.Figure(data=data1, layout=layout)
+    div1 = opy.plot(figure,auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+
+
+    '''------------------------------- TOP 10 INVENTORS- ------------------------------------------------------------'''
+    g5 = list()
+    for row in data:
+        g5.append(row.Inventors)
+
+    a5 = list()
+    for i in g5:
+        str = i
+        a5.append(str.split('\n'))
+
+    list_of_inventors = []
+
+    for sublist in a5:
+        for val in sublist:
+            list_of_inventors.append(val)
+
+    b5 = np.array(list_of_inventors)
+    unique_elements5, counts_elements5 = np.unique(b5, return_counts=True)
+
+    counts_elements5 = list(counts_elements5)
+    unique_elements5 = list(unique_elements5)
+    unique_elements5 = [x for _, x in sorted(zip(counts_elements5, unique_elements5))]
+
+    counts_elements5.sort()
+
+    def Reverse(lst):
+        lst.reverse()
+        return lst
+
+    Reverse(counts_elements5)
+    Reverse(unique_elements5)
+    unique_elements5 = unique_elements5[:10]
+    counts_elements5 = counts_elements5[:10]
+
+    trace11 = go.Bar(x=unique_elements5, y=counts_elements5,text=counts_elements5,
+            textposition='auto')
+
+
+    data11 = [trace11]
+
+    layout11 = go.Layout(title="TOP 10 INVENTORS", xaxis={'title': 'INVENTOR','showgrid':False},
+                       yaxis={'title': 'NO OF PATENTS','showgrid':False},plot_bgcolor='rgb(252, 243, 207)')
+    figure11 = go.Figure(data=data11, layout=layout11)
+    div11 = opy.plot(figure11, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''------------------------------- TOP 10 APPLICANTS- -----------------------------------------------------------'''
+    g4 = list()
+    for row in data:
+        g4.append(row.Applicants)
+
+    a4 = list()
+    for i in g4:
+        str = i
+        a4.append(str.split('\n'))
+
+    list_of_applicants = []
+
+    for sublist in a4:
+        for val in sublist:
+            list_of_applicants.append(val)
+
+    b4 = np.array(list_of_applicants)
+    unique_elements4, counts_elements4 = np.unique(b4, return_counts=True)
+
+    counts_elements4 = list(counts_elements4)
+    unique_elements4 = list(unique_elements4)
+    unique_elements4 = [x for _, x in sorted(zip(counts_elements4, unique_elements4))]
+
+    counts_elements4.sort()
+
+    def Reverse(lst):
+        lst.reverse()
+        return lst
+
+    Reverse(counts_elements4)
+    Reverse(unique_elements4)
+    unique_elements4 = unique_elements4[:10]
+    counts_elements4 = counts_elements4[:10]
+
+    trace111 = go.Bar(x=unique_elements4, y=counts_elements4,text=counts_elements4,
+            textposition='auto')
+
+
+    data111 = [trace111]
+
+    layout111 = go.Layout(title="TOP 10 APPLICANTS", xaxis={'title': 'APPLICANTS','showgrid':False},
+                         yaxis={'title': 'NO OF PATENTS','showgrid':False},
+                          plot_bgcolor='rgb(252, 243, 207)',
+            width = 1440,
+            height = 540,
+
+        margin = go.layout.Margin(
+        l=80,
+        # r=70,
+        b=250,
+        # t=100,
+        pad=6
+    )    )
+    figure111 = go.Figure(data=data111, layout=layout111)
+    div111 = opy.plot(figure111, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''------------------------------- COUNTRY WISE COUNT - ---------------------------------------------------------'''
+    g1 = list()
+    for row in data:
+        g1.append(row.Publication_number)
+
+    a1 = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g1:
+        str = i
+        two = first2(str)
+        a1.append(two)
+
+    b1 = np.array(a1)
+    unique_elements1, counts_elements1 = np.unique(b1, return_counts=True)
+
+    counts_elements1 = list(counts_elements1)
+    unique_elements1 = list(unique_elements1)
+    colors = ['gold', 'mediumturquoise', 'darkorange', 'lightgreen','mediumturquoise']
+
+    trace4 = go.Pie(labels=unique_elements1, values=counts_elements1,hoverinfo='label+percent', textinfo='label+value', textfont_size=15,hole=.3)
+
+
+    data4 = [trace4]
+
+    layout4 = go.Layout(title="COUNTRY WISE COUNT",plot_bgcolor='rgb(252, 243, 207)')
+    figure4 = go.Figure(data=data4, layout=layout4)
+    div4 = opy.plot(figure4, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''------------------------------- COUNTRY WISE PUBLICATION- ----------------------------------------------------'''
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    zippedList = list(zip(Country, Year))
+    dfObjp = pd.DataFrame(zippedList, columns=['Country', 'Year'])
+
+    dfObjp = dfObjp.groupby(['Country', 'Year']).size().to_frame(name='Count').reset_index()
+    dfObjp['size1'] = dfObjp.apply(lambda row: (row.Count * 1), axis=1)
+
+    Country_list = dfObjp['Country'].tolist()
+    Year_list= dfObjp['Year'].tolist()
+    Count_list=dfObjp['Count'].tolist()
+    size1_list=dfObjp['size1'].tolist()
+    annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+             ) for x, y, z in zip(Country_list, Year_list, Count_list)
+    ]
+
+    trace0 = go.Scatter(
+        x=Country_list,
+        y=Year_list,
+        mode='markers',
+        marker=dict(
+            color=Year_list,
+            size=Count_list,
+            sizemode='area',
+            sizeref=3. * max(Count_list) / (30. ** 3),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab = [trace0]
+    layoutb = go.Layout(annotations=annotations,title="COUNTRY WISE PUBLICATION", xaxis={'title': 'COUNTRY','showgrid':False},
+                       yaxis={'title': 'NO. OF PATENTS','showgrid':False},plot_bgcolor='rgb(252, 243, 207)')
+    figureb = go.Figure(data=datab, layout=layoutb)
+    divb = opy.plot(figureb, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''------------------------------- COUNTRY WISE EARLIEST PRIORITY - ---------------------------------------------'''
+
+    g77 = list()
+    for row in data:
+        g77.append(row.Publication_number)
+
+    Country_ep = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g77:
+        str = i
+        two = first2(str)
+        Country_ep.append(two)
+
+    g88 = list()
+    for row in data:
+        g88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in g88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+
+    zippedList = list(zip(Country_ep, Earliest_year))
+    dfObj4e = pd.DataFrame(zippedList, columns=['Country_ep', 'Earliest_year'])
+
+    dfObj4e = dfObj4e.groupby(['Country_ep', 'Earliest_year']).size().to_frame(name='Count').reset_index()
+    dfObj4e['size2'] = dfObj4e.apply(lambda row: (row.Count * 1), axis=1)
+    Country_liste = dfObj4e['Country_ep'].tolist()
+    Year_liste = dfObj4e['Earliest_year'].tolist()
+    Count_lise = dfObj4e['Count'].tolist()
+    size1_liste = dfObj4e['size2'].tolist()
+    annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(Country_liste, Year_liste, Count_lise)
+    ]
+    trace0 = go.Scatter(
+        x=Country_liste,
+        y=Year_liste,
+        mode='markers',
+        marker=dict(
+            color=Year_liste,
+            size=Count_lise,
+            sizemode='area',
+            sizeref=3. * max(Count_list) / (30. ** 3),
+            sizemin=6,
+
+             showscale=True
+        )
+
+    )
+
+    datab1 = [trace0]
+
+    layoutb1 = go.Layout(annotations=annotations, title="COUNTRY WISE EARLIEST PRIORITY", xaxis={'title': 'COUNTRY','showgrid':False},
+                        yaxis={'title': 'NO. OF PATENTS','showgrid':False},plot_bgcolor='rgb(252, 243, 207)')
+    figureb1 = go.Figure(data=datab1, layout=layoutb1)
+    divb1 = opy.plot(figureb1, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''------------------------------- BUBBLE MAP FOR TOP 10 INVENTORS AND EARLIEST PRIORITY-------------------------'''
+    s5 = list()
+    for row in data:
+        s5.append(row.Inventors)
+
+    aa5 = list()
+    for i in s5:
+        str = i
+        aa5.append(str.split('\n'))
+
+
+    list_of_inventors = []
+
+    for sublist in aa5:
+        for val in sublist:
+            list_of_inventors.append(val)
+    print(list_of_inventors)
+    s88 = list()
+    for row in data:
+        s88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in s88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+    b = list()
+    c = 0
+    for x in aa5:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Earliest_year[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_inventors, gk))
+    dfObj44 = pd.DataFrame(zippedList, columns=['list_of_inventors', 'priority_year'])
+    dfObj44 = dfObj44.groupby(['list_of_inventors', 'priority_year']).size().to_frame(name='Count').reset_index()
+    dfObj44['size22'] = dfObj44.apply(lambda row: (row.Count * 1), axis=1)
+    df = dfObj44.nlargest(10, 'Count').reset_index()
+    inventors_list=df['list_of_inventors'].tolist()
+    priority_list=df['priority_year'].tolist()
+    cou_list=df['Count'].tolist()
+    annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(inventors_list, priority_list, cou_list)
+    ]
+    trace0 = go.Scatter(
+        x=inventors_list,
+        y=priority_list,
+        mode='markers',
+        marker=dict(
+            color=priority_list,
+            size=cou_list,
+            sizemode='area',
+            sizeref=2. * max(cou_list) / (50. ** 2),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab2 = [trace0]
+    layoutb2 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP 10 INVENTORS AND EARLIEST PRIORITY", xaxis={'title': 'INVENTORS','showgrid':False},
+                         yaxis={'title': 'NO. OF PATENTS','showgrid':False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+                         margin=go.layout.Margin(
+                             l=50,
+                             r=50,
+                             b=100,
+                             t=100,
+                             pad=6
+                         )
+                         )
+    figureb2 = go.Figure(data=datab2, layout=layoutb2)
+    divb2 = opy.plot(figureb2, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''-------------------------BUBBLE MAP FOR TOP 10 APPLICANTS AND EARLIEST PRIORITY-------------------------------'''
+    g4 = list()
+    for row in data:
+        g4.append(row.Applicants)
+
+    a4 = list()
+    for i in g4:
+        str = i
+        a4.append(str.split('\n'))
+
+    list_of_applicants = list()
+
+    for sublist in a4:
+        for val in sublist:
+            list_of_applicants.append(val)
+
+    s88 = list()
+    for row in data:
+        s88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in s88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+    b = list()
+    c = 0
+    for x in a4:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Earliest_year[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_applicants, gk))
+    dfObj44 = pd.DataFrame(zippedList, columns=['list_of_applicants', 'priority_year'])
+    dfObj44 = dfObj44.groupby(['list_of_applicants', 'priority_year']).size().to_frame(name='Count').reset_index()
+    dfObj44['size22'] = dfObj44.apply(lambda row: (row.Count * 100), axis=1)
+    df = dfObj44.nlargest(10, 'Count').reset_index()
+    applicant_list = df['list_of_applicants'].tolist()
+    priority_list1 = df['priority_year'].tolist()
+    co_list = df['Count'].tolist()
+    annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(applicant_list, priority_list1, co_list)
+    ]
+    trace0 = go.Scatter(
+        x=applicant_list,
+        y=priority_list1,
+        mode='markers',
+        marker=dict(
+            color=priority_list1,
+            size=co_list,
+            sizemode='area',
+            sizeref=2. * max(co_list) / (50. ** 2),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab3 = [trace0]
+    layoutb3 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP 10 APPLICANTS AND EARLIEST PRIORITY",
+                         xaxis={'title': 'APPLICANTS','showgrid':False},
+                         yaxis={'title': 'NO. OF PATENTS','showgrid':False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+                         width=1440,
+                         height=540,
+                         margin=go.layout.Margin(
+                             l=80,
+                             r=70,
+                             b=250,
+                             t=100,
+                             pad=6
+    ) )
+    figureb3 = go.Figure(data=datab3, layout=layoutb3)
+    divb3 = opy.plot(figureb3, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''--------------------------"BUBBLE MAP FOR TOP 10 INVENTORS AND PUBLICATION YEAR-------------------------------'''
+    s5 = list()
+    for row in data:
+        s5.append(row.Inventors)
+
+    aa5 = list()
+    for i in s5:
+        str = i
+        aa5.append(str.split('\n'))
+
+    list_of_inventors = list()
+
+    for sublist in aa5:
+        for val in sublist:
+            list_of_inventors.append(val)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    b = list()
+    c = 0
+    for x in aa5:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Year[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_inventors, gk))
+    dfObj444 = pd.DataFrame(zippedList, columns=['list_of_inventors', 'Year'])
+    dfObj444 = dfObj444.groupby(['list_of_inventors', 'Year']).size().to_frame(name='Count1').reset_index()
+    dfObj444['size222'] = dfObj444.apply(lambda row: (row.Count1 * 1000), axis=1)
+
+    df = dfObj444.nlargest(10, 'Count1').reset_index()
+    inventor_list = df['list_of_inventors'].tolist()
+    year_list1 = df['Year'].tolist()
+    co_list1 = df['Count1'].tolist()
+    annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(inventor_list, year_list1, co_list1)
+    ]
+    trace0 = go.Scatter(
+        x=inventor_list,
+        y=year_list1,
+        mode='markers',
+        marker=dict(
+            color=year_list1,
+            size=co_list1,
+            sizemode='area',
+            sizeref=2. * max(co_list1) / (50. ** 2),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+    datab4 = [trace0]
+    layoutb4 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP 10 INVENTORS AND PUBLICATION YEAR",
+                         xaxis={'title': 'INVENTORS','showgrid':False},
+                         yaxis={'title': 'NO. OF PATENTS','showgrid':False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+                         margin=go.layout.Margin(
+        l=50,
+        r=50,
+        b=150,
+        t=100,
+        pad=6
+    ) )
+    figureb4 = go.Figure(data=datab4, layout=layoutb4)
+    divb4 = opy.plot(figureb4, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''-------------------------BUBBLE MAP FOR TOP 10 APPLICANTSS AND PUBLICATION YEAR-------------------------------'''
+    g4=list()
+    for row in data:
+        g4.append(row.Applicants)
+
+    a4 = list()
+    for i in g4:
+        str = i
+        a4.append(str.split('\n'))
+
+    list_of_applicants = []
+
+    for sublist in a4:
+        for val in sublist:
+            list_of_applicants.append(val)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+
+    b = list()
+    c = 0
+    for x in a4:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Year[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_applicants, gk))
+    dfObj444 = pd.DataFrame(zippedList, columns=['list_of_applicants', 'Year'])
+    dfObj444 = dfObj444.groupby(['list_of_applicants', 'Year']).size().to_frame(name='Count1').reset_index()
+    dfObj444['size222'] = dfObj444.apply(lambda row: (row.Count1 * 100), axis=1)
+    df = dfObj444.nlargest(10, 'Count1').reset_index()
+    applicant_list1 = df['list_of_applicants'].tolist()
+    year_list2 = df['Year'].tolist()
+    co_list2 = df['Count1'].tolist()
+    annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+            # size='medium',
+            # bgcolor='black',
+            # weight='semibold'
+        ) for x, y, z in zip(applicant_list1, year_list2, co_list2)
+    ]
+    trace0 = go.Scatter(
+        x=applicant_list1,
+        y=year_list2,
+
+        mode='markers',
+        marker=dict(
+            color=year_list2,
+            size=co_list2,
+            sizemode='area',
+            sizeref=2. * max(co_list2) / (50. ** 2),
+            sizemin=6,
+           showscale=True
+        )
+
+    )
+    datab5 = [trace0]
+    layoutb5 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP 10 APPLICANTSS AND PUBLICATION YEAR",
+                         xaxis={'title': 'APPLICANTS','showgrid':False},
+                         yaxis={'title': 'NO. OF PATENTS','showgrid':False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+
+                         width=1440,
+                         height=540,
+
+                          margin=go.layout.Margin(
+        l=80,
+
+        b=250,
+
+        pad=6
+    ) )
+    figureb5 = go.Figure(data=datab5, layout=layoutb5)
+    divb5 = opy.plot(figureb5, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''---------------------------HEAT MAP FOR PRIORITY YEAR AND RESPECTIVE COUNTRY----------------------------------'''
+    g33 = list()
+    for row in data:
+        g33.append(row.Publication_number)
+    # print(g)
+    Country_ep = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g33:
+        str = i
+        two = first2(str)
+        Country_ep.append(two)
+
+    g44 = list()
+    for row in data:
+        g44.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in g44:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+
+    zippedList = list(zip(Country_ep, Earliest_year))
+    dfObj1 = pd.DataFrame(zippedList, columns=['Country_ep', 'Earliest_year'])
+    dfObj1 = dfObj1.groupby(["Country_ep", "Earliest_year"]).size().to_frame(name='Count1').reset_index()
+    dfObj1.pivot(index='Country_ep', columns='Earliest_year', values='Count1')
+    z = dfObj1.pivot(index='Country_ep', columns='Earliest_year', values='Count1').values
+    z[np.isnan(z)] = 0
+
+    a = z.tolist()
+
+    unique_elements3, counts_elements3 = np.unique(Country_ep, return_counts=True)
+    uc = unique_elements3.tolist()
+    unique_elements4, counts_elements4 = np.unique(Earliest_year, return_counts=True)
+    uy = unique_elements4.tolist()
+    z = a
+    x = uy
+    y = uc
+
+    fig = ff.create_annotated_heatmap(z, x=x, y=y, annotation_text=a, colorscale='YlOrRd')
+    fig.update_layout(
+        title="HEAT MAP FOR PRIORITY YEAR AND RESPECTIVE COUNTRY",
+        xaxis_title="PRIORITY YEAR",
+        yaxis_title="COUNTRY",
+
+    )
+    divb6 = opy.plot(fig, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''------------------------HEAT MAP FOR PUBLICATION YEAR AND RESPECTIVE COUNTRY----------------------------------'''
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    zippedList = list(zip(Country, Year))
+    dfObj1x = pd.DataFrame(zippedList, columns=['Country', 'Year'])
+    dfObj1x = dfObj1x.groupby(["Country", "Year"]).size().to_frame(name='Count1').reset_index()
+    dfObj1x.pivot(index='Country', columns='Year', values='Count1')
+
+    zx = dfObj1x.pivot(index='Country', columns='Year', values='Count1').values
+
+    zx[np.isnan(zx)] = 0
+    axc = zx.tolist()
+
+    unique_elements3x, counts_elements3x = np.unique(Country, return_counts=True)
+    ucx = unique_elements3x.tolist()
+    unique_elements4x, counts_elements4x = np.unique(Year, return_counts=True)
+    uyx = unique_elements4x.tolist()
+    z = axc
+    x = uyx
+    y = ucx
+
+    figx = ff.create_annotated_heatmap(z, x=x, y=y, annotation_text=axc, colorscale='YlOrRd')
+    figx.update_layout(
+        title="HEAT MAP FOR PUBLICATION YEAR AND RESPECTIVE COUNTRY",
+        xaxis_title="PUBLICATION YEAR",
+        yaxis_title="COUNTRY",
+
+
+    )
+    divb7 = opy.plot(figx, auto_open=False, output_type='div')
+    '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+    '''------------------------------- 3d for inventor year country - -----------------------------------------------'''
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+    s5 = list()
+    for row in data:
+        s5.append(row.Inventors)
+
+    aa5 = list()
+    for i in s5:
+        str = i
+        aa5.append(str.split('\n'))
+
+    list_of_inventors = list()
+
+    for sublist in aa5:
+        for val in sublist:
+            list_of_inventors.append(val)
+
+    b = list()
+    c = 0
+    for x in aa5:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    gk1 = list()
+    gk2 = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk1.append(Country[i])
+            gk2.append(Year[i])
+        i = i + 1
+    zippedList = list(zip(list_of_inventors, gk1, gk2))
+    print(list_of_inventors)
+    print(gk1)
+    print(gk2)
+    dfObj4e = pd.DataFrame(zippedList, columns=['list_of_inventors', 'Country', 'year'])
+    dfObj4e = dfObj4e.groupby(['list_of_inventors', 'Country', 'year']).size().to_frame(name='Count').reset_index()
+    cou_listx = dfObj4e['Count'].tolist()
+    df = dfObj4e.nlargest(20, 'Count').reset_index()
+    fig = go.Figure(data=go.Scatter3d(
+        x=df['list_of_inventors'],
+        y=df['Country'],
+        z=df['year'],
+        text=df['Count'],
+        mode='markers',
+        marker=dict(
+            size=cou_list,
+            sizemode='area',
+            sizeref=2. * max(cou_listx) / (50. ** 2),
+            sizemin=6,
+
+            color=df['year'],
+            colorscale='Viridis',
+
+            line_color='rgb(140, 140, 170)'
+        )
+    ))
+
+    fig.update_layout(width=1440, height=540, title='3d MAP FOR PUBLICATION YEAR AND RESPECTIVE COUNTRY AND INVENTOR',
+                      scene=dict(xaxis=dict(title='inventors'),
+                                 yaxis=dict(title='COUNTRY'),
+                                 zaxis=dict(title='PUBLICATION YEAR'),
+
+                                 bgcolor='rgb(252, 243, 207)'
+                                 ))
+    divb8 = opy.plot(fig, auto_open=False, output_type='div')
+    models.report.objects.all().delete()
+    return render(request, "index.html", context={'plot_div':div,'plot_div1':div1,'plot_div11':div11,'plot_div111':div111,'plot_div4':div4,'plot_divb':divb,'plot_divb1':divb1,'plot_divb2':divb2,'plot_divb3':divb3,'plot_divb4':divb4,'plot_divb5':divb5,'plot_divb6':divb6,'plot_divb7':divb7,'plot_divb8':divb8})
+     '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+     '------------------------------- check - -----------
+       g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    zippedList = list(zip(Country, Year))
+    dfObjp = pd.DataFrame(zippedList, columns=['Country', 'Year'])
+
+    dfObjp = dfObjp.groupby(['Country', 'Year']).size().to_frame(name='Count').reset_index()
+    dfObjp['size1'] = dfObjp.apply(lambda row: (row.Count * 1), axis=1)
+
+    df1 = dfObjp[(dfObjp['Year'] >= datay) & (dfObjp['Year'] <= datax)]
+    dfc=df1[df1['Country'].isin(datacou)]
+    Country_list = dfc['Country'].tolist()
+    Year_list = dfc['Year'].tolist()
+    Count_list = dfc['Count'].tolist()
+    size1_list = dfc['size1'].tolist()
+    if len(Count_list) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(Country_list, Year_list, Count_list)
+    ]
+    if len(Count_list) == 0:
+        Count_list.append(0)
+    trace0 = go.Scatter(
+        x=Country_list,
+        y=Year_list,
+        mode='markers',
+        marker=dict(
+            color=Year_list,
+            size=Count_list,
+            sizemode='area',
+            sizeref=3. * max(Count_list) / (30. ** 3),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab = [trace0]
+    layoutb = go.Layout(annotations=annotations, title="COUNTRY WISE PUBLICATION",
+                        xaxis={'title': 'COUNTRY', 'showgrid': False},
+                        yaxis={'title': 'NO. OF PATENTS', 'showgrid': False}, plot_bgcolor='rgb(252, 243, 207)')
+    figureb=go.Figure(data=datab, layout=layoutb)
+    divb = opy.plot(figureb, auto_open=False, output_type='div')
+
+    g77 = list()
+    for row in data:
+        g77.append(row.Publication_number)
+
+    Country_ep = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g77:
+        str = i
+        two = first2(str)
+        Country_ep.append(two)
+
+    g88 = list()
+    for row in data:
+        g88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in g88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+
+    zippedList = list(zip(Country_ep, Earliest_year))
+    dfObj4e = pd.DataFrame(zippedList, columns=['Country_ep', 'Earliest_year'])
+    df2 = dfObj4e[(dfObj4e['Earliest_year'] >= datay) & (dfObj4e['Earliest_year'] <= datax)]
+    dfc = df2[df2['Country_ep'].isin(datacou)]
+    dfc = dfc.groupby(['Country_ep', 'Earliest_year']).size().to_frame(name='Count').reset_index()
+
+
+
+    Country_liste = dfc['Country_ep'].tolist()
+    Year_liste = dfc['Earliest_year'].tolist()
+    Count_lise = dfc['Count'].tolist()
+
+    if len(Count_lise) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(Country_liste, Year_liste, Count_lise)
+    ]
+    if len(Count_lise) == 0:
+        Count_lise.append(0)
+    trace0 = go.Scatter(
+        x=Country_liste,
+        y=Year_liste,
+        mode='markers',
+        marker=dict(
+            color=Year_liste,
+            size=Count_lise,
+            sizemode='area',
+            sizeref=3. * max(Count_lise) / (30. ** 3),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab1 = [trace0]
+
+    layoutb1 = go.Layout(annotations=annotations, title="COUNTRY WISE EARLIEST PRIORITY",
+                         xaxis={'title': 'COUNTRY', 'showgrid': False},
+                         yaxis={'title': 'NO. OF PATENTS', 'showgrid': False}, plot_bgcolor='rgb(252, 243, 207)')
+    figureb1 = go.Figure(data=datab1, layout=layoutb1)
+    divb1 = opy.plot(figureb1, auto_open=False, output_type='div')
+
+    s5 = list()
+    for row in data:
+        s5.append(row.Inventors)
+
+    aa5 = list()
+    for i in s5:
+        str = i
+        aa5.append(str.split('\n'))
+
+    list_of_inventors = list()
+
+    for sublist in aa5:
+        for val in sublist:
+            list_of_inventors.append(val)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    b = list()
+    c = 0
+    for x in aa5:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    cc = list()
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Year[i])
+            cc.append(Country[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_inventors, gk,cc))
+    dfObj444 = pd.DataFrame(zippedList, columns=['list_of_inventors', 'Year','Country'])
+    dfObj444 = dfObj444.groupby(['list_of_inventors', 'Year','Country']).size().to_frame(name='Count1').reset_index()
+    dfObj444['size222'] = dfObj444.apply(lambda row: (row.Count1 * 1000), axis=1)
+
+    df3 = dfObj444[(dfObj444['Year'] >= datay) & (dfObj444['Year'] <= datax)]
+    dfc = df3[df3['Country'].isin(datacou)]
+    if len(datacoui) == 0:
+         df = dfc.nlargest(datacoutt, 'Count1').reset_index()
+    else:
+          df = dfc[dfc['list_of_inventors'].isin(datacoui)]
+    inventor_list = df['list_of_inventors'].tolist()
+    year_list1 = df['Year'].tolist()
+    co_list1 = df['Count1'].tolist()
+    if len(co_list1) == 0:
+        annotations = [
+            dict(
+                # x=2,
+                # y=5,
+                # xref="x",
+                # yref="y",
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(inventor_list, year_list1, co_list1)
+    ]
+    if len(co_list1) == 0:
+        co_list1.append(0)
+    trace0 = go.Scatter(
+        x=inventor_list,
+        y=year_list1,
+        mode='markers',
+        marker=dict(
+            color=year_list1,
+            size=co_list1,
+            sizemode='area',
+            sizeref=2. * max(co_list1) / (50. ** 2),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+    datab4 = [trace0]
+    layoutb4 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP SELECTED INVENTORS AND PUBLICATION YEAR",
+                         xaxis={'title': 'INVENTORS', 'showgrid': False},
+                         yaxis={'title': 'NO. OF PATENTS', 'showgrid': False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+                         margin=go.layout.Margin(
+                             l=50,
+                             r=50,
+                             b=150,
+                             t=100,
+                             pad=6
+                         ))
+    figureb4 = go.Figure(data=datab4, layout=layoutb4)
+    divb2 = opy.plot(figureb4, auto_open=False, output_type='div')
+
+    g4 = list()
+    for row in data:
+        g4.append(row.Applicants)
+
+    a4 = list()
+    for i in g4:
+        str = i
+        a4.append(str.split('\n'))
+
+    list_of_applicants = []
+
+    for sublist in a4:
+        for val in sublist:
+            list_of_applicants.append(val)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+    b = list()
+    c = 0
+    for x in a4:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    cc = list()
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Year[i])
+            cc.append(Country[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_applicants, gk,cc))
+    dfObj444 = pd.DataFrame(zippedList, columns=['list_of_applicants', 'Year','Country'])
+    dfObj444 = dfObj444.groupby(['list_of_applicants', 'Year','Country']).size().to_frame(name='Count1').reset_index()
+    dfObj444['size222'] = dfObj444.apply(lambda row: (row.Count1 * 100), axis=1)
+    df3 = dfObj444[(dfObj444['Year'] >= datay) & (dfObj444['Year'] <= datax)]
+    dfc = df3[df3['Country'].isin(datacou)]
+    if len(datacoua) == 0:
+         df = dfc.nlargest(datacoutt, 'Count1').reset_index()
+    else:
+          df = dfc[dfc['list_of_applicants'].isin(datacoua)]
+
+
+    applicant_list1 = df['list_of_applicants'].tolist()
+    year_list2 = df['Year'].tolist()
+    co_list2 = df['Count1'].tolist()
+    if len(co_list2) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+
+         annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(applicant_list1, year_list2, co_list2)
+    ]
+    if len(co_list2) == 0:
+        co_list2.append(0)
+    trace0 = go.Scatter(
+        x=applicant_list1,
+        y=year_list2,
+
+        mode='markers',
+        marker=dict(
+            color=year_list2,
+            size=co_list2,
+            sizemode='area',
+            sizeref=2. * max(co_list2) / (50. ** 2),
+            sizemin=6,
+            showscale=True
+        )
+
+    )
+    datab5 = [trace0]
+    layoutb5 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP SELECTED APPLICANTSS AND PUBLICATION YEAR",
+                         xaxis={'title': 'APPLICANTS', 'showgrid': False},
+                         yaxis={'title': 'NO. OF PATENTS', 'showgrid': False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+
+                         width=1040,
+                         height=540,
+
+                         margin=go.layout.Margin(
+                             l=80,
+
+                             b=250,
+
+                             pad=6
+                         ))
+    figureb5 = go.Figure(data=datab5, layout=layoutb5)
+    divb3 = opy.plot(figureb5, auto_open=False, output_type='div')
+
+    s5 = list()
+    for row in data:
+        s5.append(row.Inventors)
+
+    aa5 = list()
+    for i in s5:
+        str = i
+        aa5.append(str.split('\n'))
+
+
+    list_of_inventors = []
+
+    for sublist in aa5:
+        for val in sublist:
+            list_of_inventors.append(val)
+
+    s88 = list()
+    for row in data:
+        s88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in s88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+    b = list()
+    c = 0
+    for x in aa5:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    cc = list()
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Earliest_year[i])
+            cc.append(Country[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_inventors, gk,cc))
+    dfObj44 = pd.DataFrame(zippedList, columns=['list_of_inventors', 'priority_year','Country'])
+    dfObj44 = dfObj44.groupby(['list_of_inventors', 'priority_year','Country']).size().to_frame(name='Count').reset_index()
+    dfObj44['size22'] = dfObj44.apply(lambda row: (row.Count * 1), axis=1)
+    df3 = dfObj44[(dfObj44['priority_year'] >= datay) & (dfObj44['priority_year'] <= datax)]
+    dfc = df3[df3['Country'].isin(datacou)]
+    if len(datacoui) == 0:
+         df = dfc.nlargest(datacoutt, 'Count').reset_index()
+    else:
+          df = dfc[dfc['list_of_inventors'].isin(datacoui)]
+
+    inventors_list = df['list_of_inventors'].tolist()
+    priority_list = df['priority_year'].tolist()
+    cou_list = df['Count'].tolist()
+
+    if len(cou_list) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(inventors_list, priority_list, cou_list)
+    ]
+    if len(cou_list) == 0:
+        cou_list.append(0)
+    trace0 = go.Scatter(
+        x=inventors_list,
+        y=priority_list,
+        mode='markers',
+        marker=dict(
+            color=priority_list,
+            size=cou_list,
+            sizemode='area',
+            sizeref=2. * max(cou_list) / (50. ** 2),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab2 = [trace0]
+    layoutb2 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP 10 INVENTORS AND EARLIEST PRIORITY",
+                         xaxis={'title': 'INVENTORS', 'showgrid': False},
+                         yaxis={'title': 'NO. OF PATENTS', 'showgrid': False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+                         margin=go.layout.Margin(
+                             l=50,
+                             r=50,
+                             b=100,
+                             t=100,
+                             pad=6
+                         )
+                         )
+    figureb2 = go.Figure(data=datab2, layout=layoutb2)
+    divb4 = opy.plot(figureb2, auto_open=False, output_type='div')
+
+    g4 = list()
+    for row in data:
+        g4.append(row.Applicants)
+
+    a4 = list()
+    for i in g4:
+        str = i
+        a4.append(str.split('\n'))
+
+    list_of_applicants = list()
+
+    for sublist in a4:
+        for val in sublist:
+            list_of_applicants.append(val)
+
+    s88 = list()
+    for row in data:
+        s88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in s88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    b = list()
+    c = 0
+    for x in a4:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    cc = list()
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Earliest_year[i])
+            cc.append(Country[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_applicants, gk,cc))
+    dfObj44 = pd.DataFrame(zippedList, columns=['list_of_applicants', 'priority_year','Country'])
+    dfObj44 = dfObj44.groupby(['list_of_applicants', 'priority_year','Country']).size().to_frame(name='Count').reset_index()
+    dfObj44['size22'] = dfObj44.apply(lambda row: (row.Count * 100), axis=1)
+    df3 = dfObj44[(dfObj44['priority_year'] >= datay) & (dfObj44['priority_year'] <= datax)]
+    dfc = df3[df3['Country'].isin(datacou)]
+    if len(datacoua) == 0:
+         df = dfc.nlargest(datacoutt, 'Count').reset_index()
+    else:
+          df = dfc[dfc['list_of_applicants'].isin(datacoua)]
+
+
+    applicant_list = df['list_of_applicants'].tolist()
+    priority_list1 = df['priority_year'].tolist()
+    co_list = df['Count'].tolist()
+    if len(co_list) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = [
+        dict(
+            x=x,
+            y=y,
+
+           text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(applicant_list, priority_list1, co_list)
+    ]
+    if len(co_list) == 0:
+        co_list.append(0)
+    trace0 = go.Scatter(
+        x=applicant_list,
+        y=priority_list1,
+        mode='markers',
+        marker=dict(
+            color=priority_list1,
+            size=co_list,
+            sizemode='area',
+            sizeref=2. * max(co_list) / (50. ** 2),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab3 = [trace0]
+    layoutb3 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP SELECTED APPLICANTS AND EARLIEST PRIORITY",
+                         xaxis={'title': 'APPLICANTS', 'showgrid': False},
+                         yaxis={'title': 'NO. OF PATENTS', 'showgrid': False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+                         width=1040,
+                         height=540,
+                         margin=go.layout.Margin(
+                             l=80,
+                             r=70,
+                             b=250,
+                             t=100,
+                             pad=6
+                         ))
+    figureb3 = go.Figure(data=datab3, layout=layoutb3)
+    divb5 = opy.plot(figureb3, auto_open=False, output_type='div')
+
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    zippedList = list(zip(Country, Year))
+    dfObj1x = pd.DataFrame(zippedList, columns=['Country', 'Year'])
+    dfObj1x = dfObj1x.groupby(["Country", "Year"]).size().to_frame(name='Count1').reset_index()
+    df = dfObj1x[(dfObj1x['Year'] >= datay) & (dfObj1x['Year'] <= datax)]
+    dfc = df[df['Country'].isin(datacou)]
+    df1=dfc.pivot(index='Country', columns='Year', values='Count1')
+
+
+    zx = dfc.pivot(index='Country', columns='Year', values='Count1').values
+
+    zx[np.isnan(zx)] = 0
+    axc = zx.tolist()
+
+    yaxis = list(df1.index.values)
+    xaxis = list(df1.columns)
+
+    z = axc
+    x = xaxis
+    y = yaxis
+    if dfc.empty == True:
+
+        trace2 = go.Bar(x=dfc['Year'],
+                        y=dfc['Country'],
+                        )
+        data2 = [trace2]
+        annotations = [
+            {
+                "text": "No matching data found",
+                "xref": "paper",
+                "yref": "paper",
+                "showarrow": False,
+                "font": {
+                    "color":"black",
+                    "size": 34
+                }
+            }
+        ]
+        layout1 = go.Layout(annotations=annotations, title="HEAT MAP FOR PUBLICATION YEAR AND RESPECTIVE COUNTRY",
+                            xaxis={'title': 'YEAR', 'showgrid': False, 'tickformat': ',d'},
+                            yaxis={'title': 'NO OF PATENTS', 'showgrid': False, 'tickformat': ',d'
+
+                                   }, plot_bgcolor='rgb(252, 243, 207)')
+        figx = go.Figure(data=data2, layout=layout1)
+
+
+    else:
+
+         figx = ff.create_annotated_heatmap(z, x=x, y=y, annotation_text=axc, colorscale='YlOrRd')
+         figx.update_layout(
+         title="HEAT MAP FOR PUBLICATION YEAR AND RESPECTIVE COUNTRY",
+         xaxis_title="PUBLICATION YEAR",
+         yaxis_title="COUNTRY",
+
+
+         )
+    divb6 = opy.plot(figx, auto_open=False, output_type='div')
+
+    g33 = list()
+    for row in data:
+        g33.append(row.Publication_number)
+
+    Country_ep = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g33:
+        str = i
+        two = first2(str)
+        Country_ep.append(two)
+
+    g44 = list()
+    for row in data:
+        g44.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in g44:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+
+    zippedList = list(zip(Country_ep, Earliest_year))
+    dfObj1 = pd.DataFrame(zippedList, columns=['Country_ep', 'Earliest_year'])
+    dfObj1 = dfObj1.groupby(["Country_ep", "Earliest_year"]).size().to_frame(name='Count1').reset_index()
+    df3 = dfObj1[(dfObj1['Earliest_year'] >= datay) & (dfObj1['Earliest_year'] <= datax)]
+    dfc = df3[df3['Country_ep'].isin(datacou)]
+    df4=dfc.pivot(index='Country_ep', columns='Earliest_year', values='Count1')
+    z = dfc.pivot(index='Country_ep', columns='Earliest_year', values='Count1').values
+    z[np.isnan(z)] = 0
+
+    a = z.tolist()
+    yaxis1 = list(df4.index.values)
+    xaxis1 = list(df4.columns)
+    z = a
+    x = xaxis1
+    y = yaxis1
+    if dfc.empty == True:
+
+        trace2 = go.Bar(x=dfc['Earliest_year'],
+                        y=dfc['Country_ep'],
+                        )
+        data2 = [trace2]
+        annotations = [
+            {
+                "text": "No matching data found",
+                "xref": "paper",
+                "yref": "paper",
+                "showarrow": False,
+                "font": {
+                    "color":"black",
+                    "size": 34
+                }
+            }
+        ]
+        layout1 = go.Layout(annotations=annotations, title="HEAT MAP FOR PRIORITY YEAR AND RESPECTIVE COUNTRY",
+                            xaxis={'title': 'YEAR', 'showgrid': False, 'tickformat': ',d'},
+                            yaxis={'title': 'NO OF PATENTS', 'showgrid': False, 'tickformat': ',d'
+
+                                   }, plot_bgcolor='rgb(252, 243, 207)')
+        fig = go.Figure(data=data2, layout=layout1)
+
+
+    else:
+
+         fig = ff.create_annotated_heatmap(z, x=x, y=y, annotation_text=a, colorscale='YlOrRd')
+         fig.update_layout(
+         title="HEAT MAP FOR PRIORITY YEAR AND RESPECTIVE COUNTRY",
+         xaxis_title="PRIORITY YEAR",
+         yaxis_title="COUNTRY",
+
+          )
+    divb7 = opy.plot(fig, auto_open=False, output_type='div')
+
+
+    s5 = list()
+    for row in data:
+        s5.append(row.Inventors)
+
+    aa5 = list()
+    for i in s5:
+        str = i
+        aa5.append(str.split('\n'))
+
+
+    list_of_inventors = list()
+
+    for sublist in aa5:
+        for val in sublist:
+            list_of_inventors.append(val)
+
+    s88 = list()
+    for row in data:
+        s88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in s88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+    b = list()
+    c = 0
+    for x in aa5:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    cc=list()
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Earliest_year[i])
+            cc.append(Country[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_inventors, gk,cc))
+    dfObj44 = pd.DataFrame(zippedList, columns=['list_of_inventors', 'priority_year','Country'])
+    dfObj44 = dfObj44.groupby(['list_of_inventors', 'priority_year','Country']).size().to_frame(name='Count').reset_index()
+    dfObj44['size22'] = dfObj44.apply(lambda row: (row.Count * 1), axis=1)
+    df3 = dfObj44[(dfObj44['priority_year'] >= datay) & (dfObj44['priority_year'] <= datax)]
+    dfc = df3[df3['Country'].isin(datacou)]
+    if len(datacoui) == 0:
+         df = dfc.nlargest(datacoutt, 'Count').reset_index()
+    else:
+          df = dfc[dfc['list_of_inventors'].isin(datacoui)]
+    inventors_list1 = df['list_of_inventors'].tolist()
+    priority_list1 = df['priority_year'].tolist()
+    cou_list1 = df['Count'].tolist()
+    if len(cou_list1) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = []
+    inventor_el=list()
+    def first10(s):
+        return s[:10]
+
+    for i in inventors_list1:
+        str = i
+        ten = first10(str)
+        inventor_el.append(ten)
+
+    n = len(inventor_el)
+    for i in range(n):
+        inventor_el[i] = inventor_el[i] + '....'
+
+
+        #inventor_el = [item + '.' for item in inventor_el]
+    trace1 = go.Bar(x=inventor_el,
+
+                    y=cou_list1,
+                    hovertext=inventors_list1,
+                    hoverinfo="text",
+                    text=cou_list1,
+                    textposition='auto'
+                    )
+    data111 = [trace1]
+
+    layout11 = go.Layout(title="top selected inventors", xaxis={'title': 'INVENTORS', 'showgrid': False},
+                         yaxis={'title': 'NO OF PATENTS', 'showgrid': False,'tickformat': ',d'}, plot_bgcolor='rgb(252, 243, 207)')
+    figure111 = go.Figure(data=data111, layout=layout11)
+    figure111.update_layout(annotations=annotations)
+    divb9 = opy.plot(figure111, auto_open=False, output_type='div')
+      '''------------------------------- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX - -------------------------------------------'''
+
+         '''------------------------------- check1 - -------------------------------------------'''
+
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    zippedList = list(zip(Country, Year))
+    dfObjp = pd.DataFrame(zippedList, columns=['Country', 'Year'])
+
+    dfObjp = dfObjp.groupby(['Country', 'Year']).size().to_frame(name='Count').reset_index()
+    dfObjp['size1'] = dfObjp.apply(lambda row: (row.Count * 1), axis=1)
+
+    df1 = dfObjp[(dfObjp['Year'] >= datay) & (dfObjp['Year'] <= datax)]
+    dfc=df1[df1['Country'].isin(datacou)]
+    Country_list = dfc['Country'].tolist()
+    Year_list = dfc['Year'].tolist()
+    Count_list = dfc['Count'].tolist()
+    size1_list = dfc['size1'].tolist()
+    if len(Count_list) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(Country_list, Year_list, Count_list)
+    ]
+    if len(Count_list) == 0:
+        Count_list.append(0)
+    trace0 = go.Scatter(
+        x=Country_list,
+        y=Year_list,
+        mode='markers',
+        marker=dict(
+            color=Year_list,
+            size=Count_list,
+            sizemode='area',
+            sizeref=3. * max(Count_list) / (30. ** 3),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab = [trace0]
+    layoutb = go.Layout(annotations=annotations, title="COUNTRY WISE PUBLICATION",
+                        xaxis={'title': 'COUNTRY', 'showgrid': False},
+                        yaxis={'title': 'NO. OF PATENTS', 'showgrid': False}, plot_bgcolor='rgb(252, 243, 207)')
+    figureb=go.Figure(data=datab, layout=layoutb)
+    divb = opy.plot(figureb, auto_open=False, output_type='div')
+
+    g77 = list()
+    for row in data:
+        g77.append(row.Publication_number)
+
+    Country_ep = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g77:
+        str = i
+        two = first2(str)
+        Country_ep.append(two)
+
+    g88 = list()
+    for row in data:
+        g88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in g88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+
+    zippedList = list(zip(Country_ep, Earliest_year))
+    dfObj4e = pd.DataFrame(zippedList, columns=['Country_ep', 'Earliest_year'])
+    df2 = dfObj4e[(dfObj4e['Earliest_year'] >= datay) & (dfObj4e['Earliest_year'] <= datax)]
+    dfc = df2[df2['Country_ep'].isin(datacou)]
+    dfc = dfc.groupby(['Country_ep', 'Earliest_year']).size().to_frame(name='Count').reset_index()
+
+
+
+    Country_liste = dfc['Country_ep'].tolist()
+    Year_liste = dfc['Earliest_year'].tolist()
+    Count_lise = dfc['Count'].tolist()
+
+    if len(Count_lise) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(Country_liste, Year_liste, Count_lise)
+    ]
+    if len(Count_lise) == 0:
+        Count_lise.append(0)
+    trace0 = go.Scatter(
+        x=Country_liste,
+        y=Year_liste,
+        mode='markers',
+        marker=dict(
+            color=Year_liste,
+            size=Count_lise,
+            sizemode='area',
+            sizeref=3. * max(Count_lise) / (30. ** 3),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab1 = [trace0]
+
+    layoutb1 = go.Layout(annotations=annotations, title="COUNTRY WISE EARLIEST PRIORITY",
+                         xaxis={'title': 'COUNTRY', 'showgrid': False},
+                         yaxis={'title': 'NO. OF PATENTS', 'showgrid': False}, plot_bgcolor='rgb(252, 243, 207)')
+    figureb1 = go.Figure(data=datab1, layout=layoutb1)
+    divb1 = opy.plot(figureb1, auto_open=False, output_type='div')
+
+    s5 = list()
+    for row in data:
+        s5.append(row.Inventors)
+
+    aa5 = list()
+    for i in s5:
+        str = i
+        aa5.append(str.split('\n'))
+
+    list_of_inventors = list()
+
+    for sublist in aa5:
+        for val in sublist:
+            list_of_inventors.append(val)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    b = list()
+    c = 0
+    for x in aa5:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    cc = list()
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Year[i])
+            cc.append(Country[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_inventors, gk,cc))
+    dfObj444 = pd.DataFrame(zippedList, columns=['list_of_inventors', 'Year','Country'])
+    dfObj444 = dfObj444.groupby(['list_of_inventors', 'Year','Country']).size().to_frame(name='Count1').reset_index()
+    dfObj444['size222'] = dfObj444.apply(lambda row: (row.Count1 * 1000), axis=1)
+
+    df3 = dfObj444[(dfObj444['Year'] >= datay) & (dfObj444['Year'] <= datax)]
+    dfc = df3[df3['Country'].isin(datacou)]
+    if len(datacoui) == 0:
+         df = dfc.nlargest(datacoutt, 'Count1').reset_index()
+    else:
+          df = dfc[dfc['list_of_inventors'].isin(datacoui)]
+    inventor_list = df['list_of_inventors'].tolist()
+    year_list1 = df['Year'].tolist()
+    co_list1 = df['Count1'].tolist()
+    if len(co_list1) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(inventor_list, year_list1, co_list1)
+    ]
+    if len(co_list1) == 0:
+        co_list1.append(0)
+    trace0 = go.Scatter(
+        x=inventor_list,
+        y=year_list1,
+        mode='markers',
+        marker=dict(
+            color=year_list1,
+            size=co_list1,
+            sizemode='area',
+            sizeref=2. * max(co_list1) / (50. ** 2),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+    datab4 = [trace0]
+    layoutb4 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP SELECTED INVENTORS AND PUBLICATION YEAR",
+                         xaxis={'title': 'INVENTORS', 'showgrid': False},
+                         yaxis={'title': 'NO. OF PATENTS', 'showgrid': False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+                         margin=go.layout.Margin(
+                             l=50,
+                             r=50,
+                             b=150,
+                             t=100,
+                             pad=6
+                         ))
+    figureb4 = go.Figure(data=datab4, layout=layoutb4)
+    divb2 = opy.plot(figureb4, auto_open=False, output_type='div')
+
+    g4 = list()
+    for row in data:
+        g4.append(row.Applicants)
+
+    a4 = list()
+    for i in g4:
+        str = i
+        a4.append(str.split('\n'))
+
+    list_of_applicants = []
+
+    for sublist in a4:
+        for val in sublist:
+            list_of_applicants.append(val)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+    b = list()
+    c = 0
+    for x in a4:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    cc = list()
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Year[i])
+            cc.append(Country[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_applicants, gk,cc))
+    dfObj444 = pd.DataFrame(zippedList, columns=['list_of_applicants', 'Year','Country'])
+    dfObj444 = dfObj444.groupby(['list_of_applicants', 'Year','Country']).size().to_frame(name='Count1').reset_index()
+    dfObj444['size222'] = dfObj444.apply(lambda row: (row.Count1 * 100), axis=1)
+    df3 = dfObj444[(dfObj444['Year'] >= datay) & (dfObj444['Year'] <= datax)]
+    dfc = df3[df3['Country'].isin(datacou)]
+    if len(datacoua) == 0:
+         df = dfc.nlargest(datacoutt, 'Count1').reset_index()
+    else:
+          df = dfc[dfc['list_of_applicants'].isin(datacoua)]
+
+
+    applicant_list1 = df['list_of_applicants'].tolist()
+    year_list2 = df['Year'].tolist()
+    co_list2 = df['Count1'].tolist()
+    if len(co_list2) == 0:
+        annotations = [
+            dict(
+                # x=2,
+                # y=5,
+                # xref="x",
+                # yref="y",
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+
+         annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(applicant_list1, year_list2, co_list2)
+    ]
+    if len(co_list2) == 0:
+        co_list2.append(0)
+    trace0 = go.Scatter(
+        x=applicant_list1,
+        y=year_list2,
+
+        mode='markers',
+        marker=dict(
+            color=year_list2,
+            size=co_list2,
+            sizemode='area',
+            sizeref=2. * max(co_list2) / (50. ** 2),
+            sizemin=6,
+            showscale=True
+        )
+
+    )
+    datab5 = [trace0]
+    layoutb5 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP SELECTED APPLICANTSS AND PUBLICATION YEAR",
+                         xaxis={'title': 'APPLICANTS', 'showgrid': False},
+                         yaxis={'title': 'NO. OF PATENTS', 'showgrid': False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+
+                         width=1040,
+                         height=540,
+
+                         margin=go.layout.Margin(
+                             l=80,
+
+                             b=250,
+
+                             pad=6
+                         ))
+    figureb5 = go.Figure(data=datab5, layout=layoutb5)
+    divb3 = opy.plot(figureb5, auto_open=False, output_type='div')
+
+    s5 = list()
+    for row in data:
+        s5.append(row.Inventors)
+
+    aa5 = list()
+    for i in s5:
+        str = i
+        aa5.append(str.split('\n'))
+
+
+    list_of_inventors = []
+
+    for sublist in aa5:
+        for val in sublist:
+            list_of_inventors.append(val)
+
+    s88 = list()
+    for row in data:
+        s88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in s88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+    b = list()
+    c = 0
+    for x in aa5:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    cc = list()
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Earliest_year[i])
+            cc.append(Country[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_inventors, gk,cc))
+    dfObj44 = pd.DataFrame(zippedList, columns=['list_of_inventors', 'priority_year','Country'])
+    dfObj44 = dfObj44.groupby(['list_of_inventors', 'priority_year','Country']).size().to_frame(name='Count').reset_index()
+    dfObj44['size22'] = dfObj44.apply(lambda row: (row.Count * 1), axis=1)
+    df3 = dfObj44[(dfObj44['priority_year'] >= datay) & (dfObj44['priority_year'] <= datax)]
+    dfc = df3[df3['Country'].isin(datacou)]
+    if len(datacoui) == 0:
+         df = dfc.nlargest(datacoutt, 'Count').reset_index()
+    else:
+          df = dfc[dfc['list_of_inventors'].isin(datacoui)]
+
+    inventors_list = df['list_of_inventors'].tolist()
+    priority_list = df['priority_year'].tolist()
+    cou_list = df['Count'].tolist()
+
+    if len(cou_list) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = [
+        dict(
+            x=x,
+            y=y,
+            text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+            # size='medium',
+            # bgcolor='black',
+            # weight='semibold'
+        ) for x, y, z in zip(inventors_list, priority_list, cou_list)
+    ]
+    if len(cou_list) == 0:
+        cou_list.append(0)
+    trace0 = go.Scatter(
+        x=inventors_list,
+        y=priority_list,
+        mode='markers',
+        marker=dict(
+            color=priority_list,
+            size=cou_list,
+            sizemode='area',
+            sizeref=2. * max(cou_list) / (50. ** 2),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab2 = [trace0]
+    layoutb2 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP 10 INVENTORS AND EARLIEST PRIORITY",
+                         xaxis={'title': 'INVENTORS', 'showgrid': False},
+                         yaxis={'title': 'NO. OF PATENTS', 'showgrid': False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+                         margin=go.layout.Margin(
+                             l=50,
+                             r=50,
+                             b=100,
+                             t=100,
+                             pad=6
+                         )
+                         )
+    figureb2 = go.Figure(data=datab2, layout=layoutb2)
+    divb4 = opy.plot(figureb2, auto_open=False, output_type='div')
+
+    g4 = list()
+    for row in data:
+        g4.append(row.Applicants)
+
+    a4 = list()
+    for i in g4:
+        str = i
+        a4.append(str.split('\n'))
+
+    list_of_applicants = list()
+
+    for sublist in a4:
+        for val in sublist:
+            list_of_applicants.append(val)
+
+    s88 = list()
+    for row in data:
+        s88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in s88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    b = list()
+    c = 0
+    for x in a4:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    cc = list()
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Earliest_year[i])
+            cc.append(Country[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_applicants, gk,cc))
+    dfObj44 = pd.DataFrame(zippedList, columns=['list_of_applicants', 'priority_year','Country'])
+    dfObj44 = dfObj44.groupby(['list_of_applicants', 'priority_year','Country']).size().to_frame(name='Count').reset_index()
+    dfObj44['size22'] = dfObj44.apply(lambda row: (row.Count * 100), axis=1)
+    df3 = dfObj44[(dfObj44['priority_year'] >= datay) & (dfObj44['priority_year'] <= datax)]
+    dfc = df3[df3['Country'].isin(datacou)]
+    if len(datacoua) == 0:
+         df = dfc.nlargest(datacoutt, 'Count').reset_index()
+    else:
+          df = dfc[dfc['list_of_applicants'].isin(datacoua)]
+
+
+    applicant_list = df['list_of_applicants'].tolist()
+    priority_list1 = df['priority_year'].tolist()
+    co_list = df['Count'].tolist()
+    if len(co_list) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = [
+        dict(
+            x=x,
+            y=y,
+
+           text='d' if y < 0 else z,  # Some conditional to define outliers
+
+            showarrow=False,
+            font=dict(
+                color="black",
+                size=14
+            ),
+            xanchor='center',  # Position of text relative to x axis (left/right/center)
+            yanchor='middle',  # Position of text relative to y axis (top/bottom/middle)
+
+        ) for x, y, z in zip(applicant_list, priority_list1, co_list)
+    ]
+    if len(co_list) == 0:
+        co_list.append(0)
+    trace0 = go.Scatter(
+        x=applicant_list,
+        y=priority_list1,
+        mode='markers',
+        marker=dict(
+            color=priority_list1,
+            size=co_list,
+            sizemode='area',
+            sizeref=2. * max(co_list) / (50. ** 2),
+            sizemin=6,
+
+            showscale=True
+        )
+
+    )
+
+    datab3 = [trace0]
+    layoutb3 = go.Layout(annotations=annotations, title="BUBBLE MAP FOR TOP SELECTED APPLICANTS AND EARLIEST PRIORITY",
+                         xaxis={'title': 'APPLICANTS', 'showgrid': False},
+                         yaxis={'title': 'NO. OF PATENTS', 'showgrid': False},
+                         plot_bgcolor='rgb(252, 243, 207)',
+                         width=1040,
+                         height=540,
+                         margin=go.layout.Margin(
+                             l=80,
+                             r=70,
+                             b=250,
+                             t=100,
+                             pad=6
+                         ))
+    figureb3 = go.Figure(data=datab3, layout=layoutb3)
+    divb5 = opy.plot(figureb3, auto_open=False, output_type='div')
+
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+
+    g66 = list()
+    for row in data:
+        g66.append(row.Publication_date)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Year = list()
+    for i in g66:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Year.append(dt.year)
+
+    zippedList = list(zip(Country, Year))
+    dfObj1x = pd.DataFrame(zippedList, columns=['Country', 'Year'])
+    dfObj1x = dfObj1x.groupby(["Country", "Year"]).size().to_frame(name='Count1').reset_index()
+    df = dfObj1x[(dfObj1x['Year'] >= datay) & (dfObj1x['Year'] <= datax)]
+    dfc = df[df['Country'].isin(datacou)]
+    df1=dfc.pivot(index='Country', columns='Year', values='Count1')
+
+
+    zx = dfc.pivot(index='Country', columns='Year', values='Count1').values
+
+    zx[np.isnan(zx)] = 0
+    axc = zx.tolist()
+
+    yaxis = list(df1.index.values)
+    xaxis = list(df1.columns)
+
+    z = axc
+    x = xaxis
+    y = yaxis
+    if dfc.empty == True:
+
+        trace2 = go.Bar(x=dfc['Year'],
+                        y=dfc['Country'],
+                        )
+        data2 = [trace2]
+        annotations = [
+            {
+                "text": "No matching data found",
+                "xref": "paper",
+                "yref": "paper",
+                "showarrow": False,
+                "font": {
+                    "color":"black",
+                    "size": 34
+                }
+            }
+        ]
+        layout1 = go.Layout(annotations=annotations, title="HEAT MAP FOR PUBLICATION YEAR AND RESPECTIVE COUNTRY",
+                            xaxis={'title': 'YEAR', 'showgrid': False, 'tickformat': ',d'},
+                            yaxis={'title': 'NO OF PATENTS', 'showgrid': False, 'tickformat': ',d'
+
+                                   }, plot_bgcolor='rgb(252, 243, 207)')
+        figx = go.Figure(data=data2, layout=layout1)
+
+
+    else:
+
+         figx = ff.create_annotated_heatmap(z, x=x, y=y, annotation_text=axc, colorscale='YlOrRd')
+         figx.update_layout(
+         title="HEAT MAP FOR PUBLICATION YEAR AND RESPECTIVE COUNTRY",
+         xaxis_title="PUBLICATION YEAR",
+         yaxis_title="COUNTRY",
+
+
+         )
+    divb6 = opy.plot(figx, auto_open=False, output_type='div')
+
+    g33 = list()
+    for row in data:
+        g33.append(row.Publication_number)
+
+    Country_ep = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g33:
+        str = i
+        two = first2(str)
+        Country_ep.append(two)
+
+    g44 = list()
+    for row in data:
+        g44.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in g44:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+
+    zippedList = list(zip(Country_ep, Earliest_year))
+    dfObj1 = pd.DataFrame(zippedList, columns=['Country_ep', 'Earliest_year'])
+    dfObj1 = dfObj1.groupby(["Country_ep", "Earliest_year"]).size().to_frame(name='Count1').reset_index()
+    df3 = dfObj1[(dfObj1['Earliest_year'] >= datay) & (dfObj1['Earliest_year'] <= datax)]
+    dfc = df3[df3['Country_ep'].isin(datacou)]
+    df4=dfc.pivot(index='Country_ep', columns='Earliest_year', values='Count1')
+    z = dfc.pivot(index='Country_ep', columns='Earliest_year', values='Count1').values
+    z[np.isnan(z)] = 0
+
+    a = z.tolist()
+    yaxis1 = list(df4.index.values)
+    xaxis1 = list(df4.columns)
+    z = a
+    x = xaxis1
+    y = yaxis1
+    if dfc.empty == True:
+
+        trace2 = go.Bar(x=dfc['Earliest_year'],
+                        y=dfc['Country_ep'],
+                        )
+        data2 = [trace2]
+        annotations = [
+            {
+                "text": "No matching data found",
+                "xref": "paper",
+                "yref": "paper",
+                "showarrow": False,
+                "font": {
+                    "color":"black",
+                    "size": 34
+                }
+            }
+        ]
+        layout1 = go.Layout(annotations=annotations, title="HEAT MAP FOR PRIORITY YEAR AND RESPECTIVE COUNTRY",
+                            xaxis={'title': 'YEAR', 'showgrid': False, 'tickformat': ',d'},
+                            yaxis={'title': 'NO OF PATENTS', 'showgrid': False, 'tickformat': ',d'
+
+                                   }, plot_bgcolor='rgb(252, 243, 207)')
+        fig = go.Figure(data=data2, layout=layout1)
+
+
+    else:
+
+         fig = ff.create_annotated_heatmap(z, x=x, y=y, annotation_text=a, colorscale='YlOrRd')
+         fig.update_layout(
+         title="HEAT MAP FOR PRIORITY YEAR AND RESPECTIVE COUNTRY",
+         xaxis_title="PRIORITY YEAR",
+         yaxis_title="COUNTRY",
+
+          )
+    divb7 = opy.plot(fig, auto_open=False, output_type='div')
+
+    s5 = list()
+    for row in data:
+        s5.append(row.Inventors)
+
+    aa5 = list()
+    for i in s5:
+        str = i
+        aa5.append(str.split('\n'))
+
+
+    list_of_inventors = list()
+
+    for sublist in aa5:
+        for val in sublist:
+            list_of_inventors.append(val)
+
+    s88 = list()
+    for row in data:
+        s88.append(row.Earliest_priority)
+
+    def try_parsing_date(text):
+        for fmt in ('%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y-%m-%d %H:%M:%S', '%d-%m-%Y'):
+            try:
+                return datetime.datetime.strptime(text, fmt)
+            except ValueError:
+                pass
+        raise ValueError('no valid date format found')
+
+    Earliest_year = list()
+    for i in s88:
+        datestring = i
+        dt = try_parsing_date(datestring)
+        Earliest_year.append(dt.year)
+    g55 = list()
+    for row in data:
+        g55.append(row.Publication_number)
+    Country = list()
+
+    def first2(s):
+        return s[:2]
+
+    for i in g55:
+        str = i
+        two = first2(str)
+        Country.append(two)
+    b = list()
+    c = 0
+    for x in aa5:
+        for y in x:
+            c = c + 1
+        b.append(c)
+        c = 0
+    cc=list()
+    gk = list()
+    i = 0
+    for y in b:
+        a = y
+        for z in range(a):
+            gk.append(Earliest_year[i])
+            cc.append(Country[i])
+        i = i + 1
+
+    zippedList = list(zip(list_of_inventors, gk,cc))
+    dfObj44 = pd.DataFrame(zippedList, columns=['list_of_inventors', 'priority_year','Country'])
+    dfObj44 = dfObj44.groupby(['list_of_inventors', 'priority_year','Country']).size().to_frame(name='Count').reset_index()
+    dfObj44['size22'] = dfObj44.apply(lambda row: (row.Count * 1), axis=1)
+    df3 = dfObj44[(dfObj44['priority_year'] >= datay) & (dfObj44['priority_year'] <= datax)]
+    dfc = df3[df3['Country'].isin(datacou)]
+    if len(datacoui) == 0:
+         df = dfc.nlargest(datacoutt, 'Count').reset_index()
+    else:
+          df = dfc[dfc['list_of_inventors'].isin(datacoui)]
+    inventors_list1 = df['list_of_inventors'].tolist()
+    priority_list1 = df['priority_year'].tolist()
+    cou_list1 = df['Count'].tolist()
+    if len(cou_list1) == 0:
+        annotations = [
+            dict(
+
+                text="No matching data found",
+                showarrow=False,
+                font=dict(
+                    color="black",
+                    size=34
+                ),
+                xanchor='center',  # Position of text relative to x axis (left/right/center)
+                yanchor='middle',
+
+            )
+
+        ]
+    else:
+        annotations = []
+    trace1 = go.Bar(x=inventors_list1,
+                    y=cou_list1,
+                    text=cou_list1,
+                    textposition='auto'
+                    )
+    data111 = [trace1]
+
+    layout11 = go.Layout(title="top selected inventors", xaxis={'title': 'INVENTORS', 'showgrid': False},
+                         yaxis={'title': 'NO OF PATENTS', 'showgrid': False,'tickformat': ',d'}, plot_bgcolor='rgb(252, 243, 207)')
+    figure111 = go.Figure(data=data111, layout=layout11)
+    figure111.update_layout(annotations=annotations)
+    divb9 = opy.plot(figure111, auto_open=False, output_type='div')

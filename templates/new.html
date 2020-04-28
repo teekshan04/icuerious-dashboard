@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<title>DASHBOARD</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<link rel="stylesheet" href="css/style.css">
+<script src="js/index.js"></script>
+<select multiple="multiple" id="myMulti">
+  <option>CSS</option>
+  <option>SCRIPT</option>
+  <option>COM</option>
+  <option>jQuery</option>
+  <option>HTML5</option>
+</select>
+
+<!-- Sidebar -->
+<div class="w3-sidebar w3-pale-yellow w3-bar-block" style="width:25%">
+  <h3 class="w3-bar-item">FILTERS</h3>
+    <form action="{% url "database:check" %}">
+
+
+
+  <h5>FROM&emsp;<textarea name="fulltextarea" cols=10 rows=1></textarea></h5>
+<h5>TO&emsp;&emsp;<textarea name="fulltextarea1" cols=10 rows=1></textarea></h5>
+
+
+
+
+<h5><label>Select Country Code</label>
+<select name="the-id"  multiple  >
+    {% for i in z %}
+    <option value="{{ i }}">{{ i }}</option>
+    {% endfor %}
+</select></h5>
+
+<h5><label>Select Number of top inventors/applicants</label>
+<select name="the-id1">
+    {% for i in z3 %}
+    <option value="{{ i }}">{{ i }}</option>
+    {% endfor %}
+</select></h5>
+<br>
+<input type="submit" value="Apply filters!"/>
+
+</form>
+</div>
+
+<!-- Page Content -->
+<div style="margin-left:25%;overflow:scroll">
+
+<div class="w3-container w3-pale-yellow">
+  <h1>CHARTS</h1>
+</div>
+
+
+
+<div class="w3-container">
+<div style="width:1440px;height:1440px;overflow:scroll;display: inline-block;">
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv }}
+  {% endautoescape %}
+</div>
+
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv1 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv2 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv3 }}
+  {% endautoescape %}
+</div>
+
+<div style="width:400px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv4 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv5 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv6 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv7 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv8 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv9 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv10 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv11 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv12 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv13 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv14 }}
+  {% endautoescape %}
+</div>
+<div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv15 }}
+  {% endautoescape %}
+</div>
+  <div style="width:1040px;height:440px;display: inline-block;">
+
+
+
+  {% autoescape off %}
+  {{ plotdiv16 }}
+  {% endautoescape %}
+
+</div>
+  <div style="width:1040px;height:440px;overflow:scroll;display: inline-block;">
+<table style="width:100px; border: 1px solid black" >
+
+{% autoescape off %}
+  {{ html_tablex }}
+  {% endautoescape %}
+
+
+</table>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+var myDrop = new drop({
+    selector:  '#myMulti'
+});
+var myDrop = new drop({
+    selector:  '#myMulti'
+    preselected: [0, 2]
+});
+</script>
+</body>
+</html>
