@@ -80,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'test_project_db',
-        'USER': 'admin'',
+        'USER': 'admin',
         'PASSWORD': 'teekshan',
         'HOST': 'teekshan-database.cp1jquevopjf.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
