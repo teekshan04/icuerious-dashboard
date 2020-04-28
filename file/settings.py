@@ -79,10 +79,11 @@ WSGI_APPLICATION = 'file.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'teekshan',
-        'USER': 'root',
-        'PASSWORD': 'icuerious',
-        #'HOST':'localhost'
+        'NAME': 'test_project_db',
+        'USER': 'admin'',
+        'PASSWORD': 'teekshan',
+        'HOST': 'teekshan-database.cp1jquevopjf.us-east-2.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
