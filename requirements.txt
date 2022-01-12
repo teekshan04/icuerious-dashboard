@@ -22,7 +22,7 @@ numpy==1.17.4
 openpyxl==3.0.3
 pandas==0.25.3
 Pillow==6.2.1
-pipenv==2018.11.26
+pipenv==2022.1.8
 plotly==4.4.1
 protobuf==3.6.1
 psycopg2==2.7.5
